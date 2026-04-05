@@ -1,0 +1,6 @@
+pteroca:
+  crud:
+    user:
+      passwords_must_match: "Mật khẩu phải khớp."
+  register:
+    email_already_exists: "Một tài khoản với địa chỉ email đó đã tồn tại."

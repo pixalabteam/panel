@@ -18,4 +18,6 @@ enum LanguageEnum: string
     case Dutch = 'nl';
     case Deutsch_Switzerland = 'de_CH';
     case Indonesian = 'id';
+
+    case Vietnamese = 'vi';
 }
