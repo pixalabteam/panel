@@ -173,7 +173,9 @@ readonly class PaymentService
         $this->eventDispatcher->dispatch($validatedEvent);
 
         if ($payment->getStatus() === $session->getPaymentStatus()) {
-            return $this->translator->trans('pteroca.recharge.payment_already_processed');
+            // This can happen if the webhook was processed before the user returned to the success URL
+            // return $this->translator->trans('pteroca.recharge.payment_already_processed');
+            return null;
         }
 
         if ($session->getPaymentStatus() === $paymentProvider::PAID_STATUS) {

@@ -1552,14 +1552,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         ...<mixed>
  *     },
  * }
- * @psalm-type WebProfilerConfig = array{
- *     toolbar?: bool|array{ // Profiler toolbar configuration
- *         enabled?: bool, // Default: false
- *         ajax_replace?: bool, // Replace toolbar on AJAX requests // Default: false
- *     },
- *     intercept_redirects?: bool, // Default: false
- *     excluded_ajax_paths?: scalar|null, // Default: "^/((index|app(_[\\w]+)?)\\.php/)?_wdt"
- * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -1587,7 +1579,20 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         vich_uploader?: VichUploaderConfig,
  *         twig_component?: TwigComponentConfig,
  *         twig_extra?: TwigExtraConfig,
- *         web_profiler?: WebProfilerConfig,
+ *     },
+ *     "when@development"?: array{
+ *         imports?: ImportsConfig,
+ *         parameters?: ParametersConfig,
+ *         services?: ServicesConfig,
+ *         framework?: FrameworkConfig,
+ *         twig?: TwigConfig,
+ *         security?: SecurityConfig,
+ *         doctrine?: DoctrineConfig,
+ *         doctrine_migrations?: DoctrineMigrationsConfig,
+ *         monolog?: MonologConfig,
+ *         vich_uploader?: VichUploaderConfig,
+ *         twig_component?: TwigComponentConfig,
+ *         twig_extra?: TwigExtraConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -1616,7 +1621,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         vich_uploader?: VichUploaderConfig,
  *         twig_component?: TwigComponentConfig,
  *         twig_extra?: TwigExtraConfig,
- *         web_profiler?: WebProfilerConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,
@@ -1698,6 +1702,7 @@ namespace Symfony\Component\Routing\Loader\Configurator;
  * }
  * @psalm-type RoutesConfig = array{
  *     "when@dev"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
+ *     "when@development"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
  *     "when@prod"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
  *     "when@test"?: array<string, RouteConfig|ImportConfig|AliasConfig>,
  *     ...<string, RouteConfig|ImportConfig|AliasConfig>
