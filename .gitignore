@@ -40,8 +40,10 @@ phpstan.neon
 # Ignore custom themes but track default theme
 /themes/*/
 !themes/default/
+!themes/pixalab/
 /public/assets/theme/*/
 !public/assets/theme/default/
+!public/assets/theme/pixalab/
 ###< pteroca/theme-system ###
 
 ###> custom ###

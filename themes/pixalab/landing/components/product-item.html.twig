@@ -1,0 +1,48 @@
+{% import 'components/macros.html.twig' as macros %}
+<a href="{{ path('panel', { routeName: 'panel_store_product', id: product.id }) }}" class="store-product-card">
+	<div class="store-product-img">
+		{% if product.imagePath is defined and product.imagePath %}
+			<img src="{{ asset(product.imagePath) }}" alt="{{ product.name }}">
+		{% else %}
+			<i class="far fa-image"></i>
+		{% endif %}
+	</div>
+	<div class="store-product-body">
+		<h3 class="store-product-name">{{ product.name }}</h3>
+		{% if product.shortDescription %}
+			<p class="store-product-desc">{{ product.shortDescription|striptags|slice(0, 90) }}
+				{% if product.shortDescription|striptags|length > 90 %}…
+				{% endif %}
+			</p>
+		{% elseif product.description %}
+			<p class="store-product-desc">{{ product.description|striptags|slice(0, 90) }}
+				{% if product.description|striptags|length > 90 %}…
+				{% endif %}
+			</p>
+		{% endif %}
+		<div class="store-product-action">
+			<div class="store-product-price">
+				{% set priceObj = product.lowestPriceObject %}
+				{% if priceObj %}
+					{% if priceObj.type.value == 'static' %}
+						{{ macros.format_price(priceObj.price, get_currency()) }}
+						<small>/
+							{{priceObj.value}}
+							{{ ('pteroca.product.' ~ priceObj.unit.value)|trans|lower }}</small>
+					{% elseif priceObj.type.value == 'on_demand' %}
+						{{ macros.format_price(priceObj.price, get_currency()) }}
+						<small>/
+							{{ 'pteroca.product.minute_short'|trans }}</small>
+					{% elseif priceObj.type.value == 'slot' %}
+						{{ macros.format_price(priceObj.price, get_currency()) }}
+						<small>/
+							{{ 'pteroca.product.slot'|trans }}</small>
+					{% endif %}
+				{% else %}
+					{{ 'pteroca.landing.products.contact_us'|trans }}
+				{% endif %}
+			</div>
+			<span class="btn btn-outline-primary">{{ 'pteroca.landing.products.order'|trans }}</span>
+		</div>
+	</div>
+</a>

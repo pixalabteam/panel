@@ -1,0 +1,8 @@
+{% import 'components/macros.html.twig' as macros %}
+
+<div class="user-balance me-4">
+	<a href="{{ path('panel', { routeName: 'recharge_balance' }) }}">
+		<i class="fas fa-coins"></i>
+		{{ macros.format_price(app.user.balance) }}
+	</a>
+</div>

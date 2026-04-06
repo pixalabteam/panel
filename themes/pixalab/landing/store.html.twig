@@ -1,0 +1,48 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block title %}{{ 'pteroca.landing.store.title'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}landing-store-grid{% endblock %}
+
+{% block body %}
+    <section class="store-grid-section">
+        <div class="container-xl">
+            <div class="store-grid-head">
+                <h1>{{ 'pteroca.landing.store.title'|trans }}</h1>
+                <p>{{ 'pteroca.landing.store.subtitle'|trans }}</p>
+            </div>
+
+            {% if selectedCategoryId %}
+                <div class="mb-4">
+                    <a href="{{ path('landing_store') }}" class="store-back-btn">
+                        <i class="fas fa-arrow-left me-2"></i>{{ 'pteroca.landing.store.show_all_categories'|trans }}
+                    </a>
+                </div>
+            {% endif %}
+
+            {% for item in storeData %}
+                {% if item.products is not empty %}
+                    <div class="store-category-block{% if not loop.last %} store-category-divider{% endif %}">
+                        <h2 class="store-category-heading">
+                            {% if item.is_translation_key is defined and item.is_translation_key %}
+                                {{ item.category.name|trans }}
+                            {% else %}
+                                {{ item.category.name }}
+                            {% endif %}
+                        </h2>
+
+                        <div class="store-product-grid">
+                            {% for product in item.products %}
+                                {{ include('components/product-item.html.twig') }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="text-center py-5">
+                    <p>{{ 'pteroca.landing.products.empty'|trans }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

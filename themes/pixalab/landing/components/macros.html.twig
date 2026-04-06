@@ -1,0 +1,15 @@
+{# components/macros.html.twig #}
+{% macro format_price(amount, currency = 'đ') %}
+	{{ amount|number_format(0, '.', ',') }}
+	{{ currency }}
+{% endmacro %}
+
+{% macro unit_format(priceUnitValue, unitValue) %}
+	{% if unitValue == 'days' and priceUnitValue > 30 %}
+		{{ (priceUnitValue / 30)|round(0, 'floor') }}
+		tháng
+	{% else %}
+		{{ priceUnitValue }}
+		{{ unitValue }}
+	{% endif %}
+{% endmacro %}

@@ -1,0 +1,17 @@
+{
+  "template": {
+    "name": "pixalab",
+    "description": "Pixalab template for the project PteroCA.com",
+    "author": "pixalab.co",
+    "version": "1.0.0",
+    "license": "MIT",
+    "pterocaVersion": "0.6.4",
+    "phpVersion": ">=8.2",
+    "contexts": ["panel", "landing"],
+    "translations": [],
+    "options": {
+      "supportDarkMode": false,
+      "supportCustomColors": false
+    }
+  }
+}

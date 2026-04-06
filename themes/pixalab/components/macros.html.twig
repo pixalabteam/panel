@@ -1,0 +1,5 @@
+{# components/macros.html.twig #}
+{% macro format_price(amount, currency = 'đ') %}
+	{{ amount|number_format(0, '.', ',') }}
+	{{ currency }}
+{% endmacro %}

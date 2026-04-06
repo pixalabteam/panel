@@ -1,0 +1,67 @@
+{% set currentRoute = app.request.attributes.get('_route') %}
+{% set user_menu_avatar %}
+    {% if app.user and app.user.avatarPath is not null %}
+        <img class="user-avatar" src="/uploads/avatars/{{ app.user.avatarPath }}" alt="{{ app.user.userIdentifier|default('User') }}" />
+    {% else %}
+        <span class="user-avatar landing-user-avatar-fallback">
+            <span class="fa-stack">
+                <i class="user-avatar-icon-background fas fa-square fa-stack-2x"></i>
+                <i class="user-avatar-icon-foreground {{ app.user is not null ? 'fa fa-user' : 'fas fa-user-slash' }} fa-stack-1x fa-inverse"></i>
+            </span>
+        </span>
+    {% endif %}
+{% endset %}
+<nav class="navbar navbar-expand-lg fixed-top landing-navbar landing-navbar-racing navbar-dark">
+    <div class="container-fluid landing-navbar-racing-inner">
+        <a class="navbar-brand landing-brand landing-brand-badge" href="{{ path('homepage') }}">
+            <img src="{{ get_logo() }}" alt="{{ get_title() }}" class="landing-navbar-logo d-none d-lg-block">
+            <img src="/assets/img/logo/logo.svg" alt="{{ get_title() }}" class="landing-navbar-logo-mobile d-lg-none">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {{ currentRoute == 'landing_store' ? 'active' : '' }}" href="{{ path('landing_store') }}">
+                        <span>Game Servers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://blog.pixalab.co" target="_blank" rel="noopener noreferrer">
+                        <span>News</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/faq">
+                        <span>FAQ</span>
+                    </a>
+                </li>
+            </ul>
+
+            {% if app.user %}
+            <div class="landing-racing-right ms-lg-auto">
+                <a class="landing-dashboard-action" href="{{ path('panel') }}">
+                    <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+                </a>
+
+                <a class="landing-user-chip" href="{{ path('panel') }}" aria-label="Account">
+                    <span class="landing-user-avatar">
+                        {{ user_menu_avatar }}
+                    </span>
+                    <span class="landing-user-status"></span>
+                </a>
+            </div>
+            {% else %}
+            <div class="landing-racing-right ms-lg-auto">
+                <a class="btn btn-outline-primary" href="{{ path('app_login') }}">
+                    <span>Đăng nhập</span>
+                </a>
+                <a class="btn btn-primary" href="{{ path('app_register') }}">
+                    <span>Bắt đầu</span>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>

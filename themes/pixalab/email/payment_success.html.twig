@@ -1,0 +1,31 @@
+{% import 'components/macros.html.twig' as macros %}
+
+{% extends 'email/layout/base.html.twig' %}
+{% trans_default_domain 'messages' %}
+
+{% set emailTitle = 'pteroca.email.payment.subject'|trans %}
+
+{% block content %}
+	{% include 'email/components/icon_section.html.twig' with {
+        icon: '✓',
+        iconColor: '#22c55e',
+        title: 'pteroca.email.payment.title'|trans,
+        message: 'pteroca.email.payment.subtitle'|trans
+    } %}
+
+	{% include 'email/components/alert.html.twig' with {
+        type: 'success',
+        message: 'pteroca.email.payment.payment_received'|trans ~ ' ' ~ macros.format_price(amount) ~ ' ' ~ currency|upper ~ '.'
+    } %}
+
+	{% include 'email/components/table.html.twig' with {
+        rows: [
+            {label: 'pteroca.email.payment.amount_paid'|trans, value: macros.format_price(amount) ~ ' ' ~ currency|upper},
+            {label: 'pteroca.email.payment.new_balance'|trans, value: macros.format_price(amount) ~ ' ' ~ internalCurrency}
+        ]
+    } %}
+
+	<p style="text-align: center; color: #6b7280; font-size: 14px; margin: 24px 0 0;">
+		{{ 'pteroca.email.payment.thank_you'|trans }}
+	</p>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}" data-bs-theme="{{ app.request.attributes.get('_route') == 'landing_store' ? 'light' : 'dark' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ get_title() }}{% endblock %}</title>
+    <link rel="icon" href="{{ get_favicon() }}">
+
+    {# Google Fonts: Inter + Barlow Condensed for the racing navbar style #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    {% block stylesheets %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="{{ asset('assets/theme/pixalab/css/landing.css') }}">
+    {% endblock %}
+
+    {% block head_custom_scripts %}
+        {% include 'components/custom_head_scripts.html.twig' %}
+    {% endblock %}
+</head>
+<body class="d-flex flex-column min-vh-100 {% block body_class %}{% endblock %}">
+    {% set currentRoute = app.request.attributes.get('_route') %}
+    {% set user_menu_avatar %}
+        {% if app.user and app.user.avatarPath is not null %}
+            <img class="user-avatar" src="/uploads/avatars/{{ app.user.avatarPath }}" alt="{{ app.user.userIdentifier|default('User') }}" />
+        {% else %}
+            <span class="user-avatar landing-user-avatar-fallback">
+                <span class="fa-stack">
+                    <i class="user-avatar-icon-background fas fa-square fa-stack-2x"></i>
+                    <i class="user-avatar-icon-foreground {{ app.user is not null ? 'fa fa-user' : 'fas fa-user-slash' }} fa-stack-1x fa-inverse"></i>
+                </span>
+            </span>
+        {% endif %}
+    {% endset %}
+    {% block navigation %}
+        {{ include('components/navbar.html.twig') }}
+    {% endblock %}
+
+    <main class="flex-grow-1">
+        {% block body %}{% endblock %}
+    </main>
+
+    {% block footer %}
+        {{ include('components/footer.html.twig') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,10 @@
+{# Featured Products #}
+<div class="store-product-grid">
+    {% for product in products %}
+        {{ include('components/product-item.html.twig') }}
+    {% else %}
+        <div class="text-center text-muted py-5 w-100">
+            <p>{{ 'pteroca.landing.products.empty'|trans }}</p>
+        </div>
+    {% endfor %}
+</div>
